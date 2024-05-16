@@ -5,8 +5,87 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AddressBook.ViewerWpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Adresár zamestnancov" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition />
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
 
+        <!--prvy riadok-->
+        <Button Grid.Row="0" Content="Otvoriť..." HorizontalAlignment="Left" Margin="4" Padding="5, 0" Click="OpenFileClick"/>
+
+        <!--druhy riadok-->
+        <StackPanel Grid.Row="1">
+            <Label Content="Meno/priezvisko:"/>
+            <TextBox Margin="4" x:Name="NameTextBox"/>
+        </StackPanel>
+
+        <!--treti riadok-->
+        <StackPanel Grid.Row="2">
+            <Label Content="Funkcia:"/>
+            <ComboBox Margin="4" x:Name="PositionComboBox" />
+        </StackPanel>
+
+        <!--stvrty riadok-->
+        <StackPanel Grid.Row="3">
+            <Label Content="Pracovisko:"/>
+            <ComboBox Margin="4" x:Name="WorkplaceComboBox"/>
+        </StackPanel>
+
+        <!--piaty riadok-->
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <Button Content="Vyhľadať zamestnanca" Grid.Column="0" Margin="4" Padding="5, 0" HorizontalAlignment="Left" Click="SearchClick"/>
+            <Button Content="Resetovať vyhľadávanie" Grid.Column="1" Margin="4" Padding="5, 0" HorizontalAlignment="Left" Click="ResetClick"/>
+        </StackPanel>
+
+        <!--siesty riadok-->
+        <ListBox x:Name="EmployeesListBox" Grid.Row="5" Margin="4">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" FontSize="15"/>
+                        <TextBlock>
+                            <Run Text="Pracovisko: " FontWeight="Bold"/>
+                            <Run Text="{Binding Workplace}"/>   
+                        </TextBlock>
+                        <TextBlock>
+                            <Run Text="Miestnosť: " FontWeight="Bold"/>
+                            <Run Text="{Binding Room}"/>
+                        </TextBlock>
+                        <TextBlock>
+                            <Run Text="Telefón: " FontWeight="Bold"/>
+                            <Run Text="{Binding Phone}"/>   
+                        </TextBlock>
+                        <TextBlock>
+                            <Run Text="E-mail: " FontWeight="Bold"/>
+                            <Run Text="{Binding Email}"/>   
+                        </TextBlock>
+                        <TextBlock>
+                            <Run Text="Funkcia: " FontWeight="Bold"/>
+                            <Run Text="{Binding Position}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <!--siedmy riadok-->
+        <Grid Grid.Row ="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Počet nájdených zamestnancov: " Grid.Column="0" Margin="3"/>
+            <Label x:Name="EmployeeCountLabel" Content="0" Grid.Column="1" Margin="3" FontWeight="Bold"/>
+            <Button Content="Exportovať vyhľadávanie do CSV" Grid.Column="2" Margin="4" Padding="5, 0" HorizontalAlignment="Right" Click="ExportClick"/>
+        </Grid>
     </Grid>
 </Window>
