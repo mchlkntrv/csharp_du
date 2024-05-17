@@ -16,6 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.ViewerWpfApp", 
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook.EditorWpfApp", "AddressBook.EditorWpfApp\AddressBook.EditorWpfApp.csproj", "{6579D863-2C12-41DF-AEFE-E6B537BD1959}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A4F0E992-BD75-4807-B584-E53ECDFB3ACD} = {A4F0E992-BD75-4807-B584-E53ECDFB3ACD}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

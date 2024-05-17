@@ -1,39 +1,33 @@
 ﻿using AddressBook.CommonLibrary;
 using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
-namespace AddressBook.ViewerWpfApp
+namespace AddressBook.EditorWpfApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SearchWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SearchWindow : Window
     {
-        private EmployeeList? _employeeList;
-        public MainWindow()
+        private readonly EmployeeList? _employeeList;
+        public SearchWindow(EmployeeList employees)
         {
+            _employeeList = employees;
             InitializeComponent();
         }
-
-        private void OpenFileClick(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog
-            {
-                Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"
-            };
-            if (openFileDialog.ShowDialog() == true)
-            {
-                var fileInfo = new FileInfo(openFileDialog.FileName);
-                _employeeList = EmployeeList.LoadFromJson(fileInfo);
-                if (_employeeList != null)
-                {
-                    PositionComboBox.ItemsSource = _employeeList.GetPositions();
-                    WorkplaceComboBox.ItemsSource = _employeeList.GetMainWorkplaces();
-                }
-            }
-        }
-
         private void SearchClick(object sender, RoutedEventArgs e)
         {
             if (_employeeList != null)
