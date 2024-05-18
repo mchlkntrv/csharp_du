@@ -4,14 +4,37 @@ namespace AddressBook.CommonLibrary
 {
     public record Employee : INotifyPropertyChanged
     {
-        public required string _name;
-        public required string _position;
+        public string _name;
+        public string _position;
         public string? _phone;
-        public required string _email;
+        public string _email;
         public string? _room;
         public string? _mainWorkplace;
         public string? _workplace;
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public Employee(string name, string position, string email)
+        {
+            _name = name;
+            _position = position;
+            _email = email;
+        }
+
+        public void UpdateFrom(Employee other)
+        {
+            Name = other.Name;
+            Position = other.Position;
+            Phone = other.Phone;
+            Email = other.Email;
+            Room = other.Room;
+            MainWorkplace = other.MainWorkplace;
+            Workplace = other.Workplace;
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public string Name
         {
@@ -19,7 +42,7 @@ namespace AddressBook.CommonLibrary
             set
             {
                 _name = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -29,7 +52,7 @@ namespace AddressBook.CommonLibrary
             set
             {
                 _position = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Position)));
+                OnPropertyChanged(nameof(Position));
             }
         }
 
@@ -39,7 +62,7 @@ namespace AddressBook.CommonLibrary
             set
             {
                 _phone = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Phone)));
+                OnPropertyChanged(nameof(Phone));
             }
         }
 
@@ -49,7 +72,7 @@ namespace AddressBook.CommonLibrary
             set
             {
                 _email = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Email)));
+                OnPropertyChanged(nameof(Email));
             }
         }
 
@@ -59,7 +82,7 @@ namespace AddressBook.CommonLibrary
             set
             {
                 _room = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Room)));
+                OnPropertyChanged(nameof(Room));
             }
         }
 
@@ -69,7 +92,7 @@ namespace AddressBook.CommonLibrary
             set
             {
                 _mainWorkplace = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MainWorkplace)));
+                OnPropertyChanged(nameof(MainWorkplace));
             }
         }
 
@@ -79,7 +102,7 @@ namespace AddressBook.CommonLibrary
             set
             {
                 _workplace = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Workplace)));
+                OnPropertyChanged(nameof(Workplace));
             }
         }
     }

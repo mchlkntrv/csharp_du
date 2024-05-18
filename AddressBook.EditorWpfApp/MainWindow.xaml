@@ -26,7 +26,7 @@
                 <MenuItem Header="Odstrániť..." Click="DeleteClick" x:Name="DeleteButton"/>
             </MenuItem>
             <MenuItem Header="Pomocník">
-                <MenuItem Header="O programe..."/>
+                <MenuItem Header="O programe..." Click="AboutClick"/>
             </MenuItem>
         </Menu>
 
@@ -43,10 +43,10 @@
                 <Label Content="0" x:Name="EmployeeCountLabel"/>
             </StackPanel>
 
-            <Button Content="Vyhľadať" Grid.Column="1" Width="70" HorizontalAlignment="Right" Margin="0,2,10,2" Click="SearchClick"/>
+            <Button Content="Vyhľadať" Grid.Column="1" Width="70" HorizontalAlignment="Right" Margin="0,2,10,2" Click="SearchClick" x:Name="SearchButton"/>
         </Grid>
 
-        <ListView Grid.Row="2" Margin="10" x:Name="EmployeeListView" SelectionChanged="EmployeeListViewSelectionChanged">
+        <ListView Grid.Row="2" Margin="10" x:Name="EmployeeListView" SelectionMode="Single" SelectionChanged="EmployeeListViewSelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Zamestnanec" DisplayMemberBinding="{Binding Name}" Width="auto"/>
@@ -59,6 +59,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
     </Grid>
 </Window>

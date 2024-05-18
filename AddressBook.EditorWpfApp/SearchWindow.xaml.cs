@@ -27,6 +27,8 @@ namespace AddressBook.EditorWpfApp
         {
             _employeeList = employees;
             InitializeComponent();
+            PositionComboBox.ItemsSource = _employeeList.GetPositions();
+            WorkplaceComboBox.ItemsSource = _employeeList.GetMainWorkplaces();
         }
         private void SearchClick(object sender, RoutedEventArgs e)
         {
@@ -39,6 +41,8 @@ namespace AddressBook.EditorWpfApp
 
                 EmployeesListBox.ItemsSource = results.Employees;
                 EmployeeCountLabel.Content = results.Employees.Length.ToString();
+
+               
             }
         }
 

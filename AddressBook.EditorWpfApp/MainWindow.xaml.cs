@@ -1,32 +1,45 @@
 ﻿using AddressBook.CommonLibrary;
 using Microsoft.Win32;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace AddressBook.EditorWpfApp
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private EmployeeList _employees = [];
+        public Employee? SelectedEmployee { get; set; }
+
         private bool _wasChanged;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public MainWindow()
         {
             InitializeComponent();
             EmployeeListView.ItemsSource = _employees;
+
             UpdateEmployeeCount();
-            bool isItemSelected = EmployeeListView.SelectedItem != null;
-            EditButton.IsEnabled = isItemSelected;
-            DeleteButton.IsEnabled = isItemSelected;
-            EditButtonMain.IsEnabled = isItemSelected;
-            DeleteButtonMain.IsEnabled = isItemSelected;
+
+            //SetButtons();
+
+            //bool isItemSelected = EmployeeListView.SelectedItem != null;
+            //EditButton.IsEnabled = isItemSelected;
+            //DeleteButton.IsEnabled = isItemSelected;
+            //EditButtonMain.IsEnabled = isItemSelected;
+            //DeleteButtonMain.IsEnabled = isItemSelected;
         }
 
         private void UpdateEmployeeCount()
         {
             EmployeeCountLabel.Content = _employees.Count;
+            SearchButton.IsEnabled = (EmployeeListView.Items.Count > 0);
+            SetButtons();
         }
 
         private void NewFileClick(object sender, RoutedEventArgs e)
@@ -92,7 +105,7 @@ namespace AddressBook.EditorWpfApp
 
         private void AddClick(object sender, RoutedEventArgs e)
         {
-            var addEmployeeDialog = new EmployeeWindow();
+            var addEmployeeDialog = new AddEmployeeWindow();
             if (addEmployeeDialog.ShowDialog() == true)
             {
                 var newEmployee = addEmployeeDialog.Employee;
@@ -105,42 +118,45 @@ namespace AddressBook.EditorWpfApp
 
         private void EditClick(object sender, RoutedEventArgs e)
         {
-            if (EmployeeListView.SelectedItem is Employee selectedEmployee)
+            SelectedEmployee = EmployeeListView.SelectedItem as Employee;
+            EmployeeListView.SelectedItem = null;
+
+
+            if (SelectedEmployee != null)
             {
-                var editEmployeeDialog = new EmployeeWindow(selectedEmployee);
+                var CopyEmployee = new Employee(SelectedEmployee.Name, SelectedEmployee.Position, SelectedEmployee.Email);
+                CopyEmployee.UpdateFrom(SelectedEmployee);
+
+                var editEmployeeDialog = new EditEmployeeWindow(CopyEmployee);
+
                 if (editEmployeeDialog.ShowDialog() == true)
                 {
-                    selectedEmployee.Name = editEmployeeDialog.Employee.Name;
-                    selectedEmployee.Position = editEmployeeDialog.Employee.Position;
-                    selectedEmployee.Phone = editEmployeeDialog.Employee.Phone;
-                    selectedEmployee.Email = editEmployeeDialog.Employee.Email;
-                    selectedEmployee.Room = editEmployeeDialog.Employee.Room;
-                    selectedEmployee.MainWorkplace = editEmployeeDialog.Employee.MainWorkplace;
-                    selectedEmployee.Workplace = editEmployeeDialog.Employee.Workplace;
-
-                    EmployeeListView.SelectedItem = null;
-                    UpdateEmployeeCount();
+                    SelectedEmployee.UpdateFrom(CopyEmployee);
+                    EmployeeListView.Items.Refresh();
                     _wasChanged = true;
-
                 }
             }
-            EmployeeListView.Items.Refresh();
+            SetButtons();
         }
 
         private void DeleteClick(object sender, RoutedEventArgs e)
         {
-            if (EmployeeListView.SelectedItem is Employee selectedEmployee)
+            SelectedEmployee = EmployeeListView.SelectedItem as Employee;
+            EmployeeListView.SelectedItem = null;
+
+            if (SelectedEmployee != null)
             {
-                var result = MessageBox.Show($"Chcete odstrániť vybraného zamestnanca?", "Odstrániť zamestnanca", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                var result = MessageBox.Show($"Chcete odstrániť vybraného zamestnanca?", "Odstrániť zamestnanca", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+
                 if (result == MessageBoxResult.Yes)
                 {
-                    _employees.Remove(selectedEmployee);
+                    _employees.Remove(SelectedEmployee);
                     UpdateEmployeeCount();
                     EmployeeListView.Items.Refresh();
                     _wasChanged = true;
-
                 }
             }
+            SetButtons();
         }
 
         private void SearchClick(object sender, RoutedEventArgs e)
@@ -149,13 +165,27 @@ namespace AddressBook.EditorWpfApp
             searchWindow.ShowDialog();
         }
 
-        private void EmployeeListViewSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void EmployeeListViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (EmployeeListView.SelectedItem != null)
+            {
+                SetButtons();
+            }
+        }
+
+        private void SetButtons()
         {
             bool isItemSelected = EmployeeListView.SelectedItem != null;
             EditButton.IsEnabled = isItemSelected;
             DeleteButton.IsEnabled = isItemSelected;
             EditButtonMain.IsEnabled = isItemSelected;
             DeleteButtonMain.IsEnabled = isItemSelected;
+            SearchButton.IsEnabled = (EmployeeListView.Items.Count > 0);
+        }
+
+        private void AboutClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Adresár zamestnancov Ultra Enterprise Pro Ultimate Edition\n\n© 1999\nAutor: Michaela Kantorová", "O programe", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
