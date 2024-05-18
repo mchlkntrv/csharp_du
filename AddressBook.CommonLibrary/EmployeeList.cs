@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace AddressBook.CommonLibrary
 {
@@ -31,6 +29,7 @@ namespace AddressBook.CommonLibrary
             var mainWorkplaces = from employee in this select employee.MainWorkplace;
             return mainWorkplaces.Where(mainWorkplace => mainWorkplace != null).Distinct().OrderBy(mainWorkplace => mainWorkplace);
         }
+
         public SearchResult Search(string? mainWorkplace = null, string? position = null, string? name = null)
         {
             IEnumerable<Employee> result = this;

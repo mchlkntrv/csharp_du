@@ -10,29 +10,19 @@ namespace AddressBook.EditorWpfApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         private EmployeeList _employees = [];
         public Employee? SelectedEmployee { get; set; }
 
         private bool _wasChanged;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         public MainWindow()
         {
             InitializeComponent();
             EmployeeListView.ItemsSource = _employees;
-
             UpdateEmployeeCount();
-
-            //SetButtons();
-
-            //bool isItemSelected = EmployeeListView.SelectedItem != null;
-            //EditButton.IsEnabled = isItemSelected;
-            //DeleteButton.IsEnabled = isItemSelected;
-            //EditButtonMain.IsEnabled = isItemSelected;
-            //DeleteButtonMain.IsEnabled = isItemSelected;
         }
 
         private void UpdateEmployeeCount()
@@ -103,6 +93,7 @@ namespace AddressBook.EditorWpfApp
             Close();
         }
 
+        //Základ metódy napísany Copilotom, neskôr upravený
         private void AddClick(object sender, RoutedEventArgs e)
         {
             var addEmployeeDialog = new AddEmployeeWindow();
@@ -116,11 +107,11 @@ namespace AddressBook.EditorWpfApp
             EmployeeListView.Items.Refresh();
         }
 
+        //Základ metódy napísany Copilotom, neskôr upravený
         private void EditClick(object sender, RoutedEventArgs e)
         {
             SelectedEmployee = EmployeeListView.SelectedItem as Employee;
             EmployeeListView.SelectedItem = null;
-
 
             if (SelectedEmployee != null)
             {
@@ -139,6 +130,7 @@ namespace AddressBook.EditorWpfApp
             SetButtons();
         }
 
+        //Základ metódy napísany Copilotom, neskôr upravený
         private void DeleteClick(object sender, RoutedEventArgs e)
         {
             SelectedEmployee = EmployeeListView.SelectedItem as Employee;

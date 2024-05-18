@@ -26,7 +26,7 @@ class Program
 
             foreach (Employee employee in searchResult.Employees)
             {
-                Console.WriteLine($"[{searchResult.Employees.ToList().IndexOf(employee)+1}] {employee.Name}");
+                Console.WriteLine($"[{searchResult.Employees.ToList().IndexOf(employee) + 1}] {employee.Name}");
                 Console.WriteLine($"Pracovisko: {employee.Workplace}");
                 Console.WriteLine($"Miestnosť: {employee.Room}");
                 Console.WriteLine($"Telefón: {employee.Phone}");
