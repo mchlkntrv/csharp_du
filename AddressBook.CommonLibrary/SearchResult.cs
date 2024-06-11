@@ -10,7 +10,6 @@ namespace AddressBook.CommonLibrary
         {
             get => _employees;
         }
-
         public void SaveToCsv(FileInfo csvFile, string delimiter = "\t")
         {
             using StreamWriter writer = new(csvFile.FullName, false, Encoding.UTF8);

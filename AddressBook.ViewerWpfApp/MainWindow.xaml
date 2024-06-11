@@ -38,6 +38,7 @@
         </StackPanel>
 
         <!--row 6-->
+        <!--https://learn.microsoft.com/en-us/dotnet/desktop/wpf/data/data-templating-overview?view=netframeworkdesktop-4.8-->
         <ListBox x:Name="EmployeesListBox" Grid.Row="5" Margin="4">
             <ListBox.ItemTemplate>
                 <DataTemplate>

@@ -42,6 +42,7 @@
         <ListView Grid.Row="2" Margin="10" x:Name="EmployeeListView" SelectionMode="Single" SelectionChanged="EmployeeListViewSelectionChanged">
             <ListView.View>
                 <GridView>
+                    <!--https://learn.microsoft.com/en-us/dotnet/api/system.windows.controls.gridviewcolumn.displaymemberbinding?view=windowsdesktop-8.0-->
                     <GridViewColumn Header="Zamestnanec" DisplayMemberBinding="{Binding Name}" Width="auto" />
                     <GridViewColumn Header="Funkcia" DisplayMemberBinding="{Binding Position}" Width="auto" />
                     <GridViewColumn Header="Telefón" DisplayMemberBinding="{Binding Phone}" Width="auto" />

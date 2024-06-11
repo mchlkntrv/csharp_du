@@ -93,7 +93,6 @@ namespace AddressBook.EditorWpfApp
             Close();
         }
 
-        //Základ metódy napísany Copilotom, neskôr upravený
         private void AddClick(object sender, RoutedEventArgs e)
         {
             var addEmployeeDialog = new AddEmployeeWindow();
@@ -107,7 +106,6 @@ namespace AddressBook.EditorWpfApp
             EmployeeListView.Items.Refresh();
         }
 
-        //Základ metódy napísany Copilotom, neskôr upravený
         private void EditClick(object sender, RoutedEventArgs e)
         {
             SelectedEmployee = EmployeeListView.SelectedItem as Employee;
@@ -115,14 +113,14 @@ namespace AddressBook.EditorWpfApp
 
             if (SelectedEmployee != null)
             {
-                var CopyEmployee = new Employee(SelectedEmployee.Name, SelectedEmployee.Position, SelectedEmployee.Email);
-                CopyEmployee.UpdateFrom(SelectedEmployee);
+                var EmployeeCopy = new Employee(SelectedEmployee.Name, SelectedEmployee.Position, SelectedEmployee.Email);
+                EmployeeCopy.UpdateFrom(SelectedEmployee);
 
-                var editEmployeeDialog = new EditEmployeeWindow(CopyEmployee);
+                var editEmployeeDialog = new EditEmployeeWindow(EmployeeCopy);
 
                 if (editEmployeeDialog.ShowDialog() == true)
                 {
-                    SelectedEmployee.UpdateFrom(CopyEmployee);
+                    SelectedEmployee.UpdateFrom(EmployeeCopy);
                     EmployeeListView.Items.Refresh();
                     _wasChanged = true;
                 }
@@ -130,7 +128,6 @@ namespace AddressBook.EditorWpfApp
             SetButtons();
         }
 
-        //Základ metódy napísany Copilotom, neskôr upravený
         private void DeleteClick(object sender, RoutedEventArgs e)
         {
             SelectedEmployee = EmployeeListView.SelectedItem as Employee;

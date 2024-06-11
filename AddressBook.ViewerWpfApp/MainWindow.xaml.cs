@@ -16,7 +16,6 @@ namespace AddressBook.ViewerWpfApp
             InitializeComponent();
         }
 
-        //FileDialog Filter doplnil Copilot
         private void OpenFileClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new()
@@ -58,7 +57,6 @@ namespace AddressBook.ViewerWpfApp
             EmployeeCountLabel.Content = "0";
         }
 
-        //FileDialog Filter doplnil Copilot
         private void ExportClick(object sender, RoutedEventArgs e)
         {
             if (_employeeList != null)
